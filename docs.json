@@ -59,7 +59,7 @@
           {
             "group": "Authentication",
             "pages": [
-              "api-reference/endpoint/get",
+              "api-reference/endpoint/post",
               "api-reference/endpoint/create",
               "api-reference/endpoint/delete",
               "api-reference/endpoint/webhook"

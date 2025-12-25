@@ -19,23 +19,13 @@
     }
   ],
   "paths": {
-    "/plants": {
-      "get": {
+    "/auth/1.0.0": {
+      "login": {
         "description": "Perform the access login, which returns your API KEY in the body of the request.",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "description": "The maximum number of results to return",
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ],
+        "parameters": [],
         "responses": {
           "200": {
-            "description": "Plant response",
+            "description": "Login response",
             "content": {
               "application/json": {
                 "schema": {
@@ -47,8 +37,8 @@
               }
             }
           },
-          "400": {
-            "description": "Unexpected error",
+          "401": {
+            "description": "unauthorized",
             "content": {
               "application/json": {
                 "schema": {
