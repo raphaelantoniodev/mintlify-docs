@@ -1,4 +1,43 @@
 ---
-title: "Login"
-openapi: "POST /auth/1.0.0/login"
+title: "Register"
+openapi: "POST /auth/1.0.0/register"
 ---
+
+Cria uma nova conta na plataforma **PixelJamCreator Studio**.
+
+---
+
+<Danger>
+  Essa rota é restrita para registro de E-mail manualmente, aceitando apenas provedores do google, hotmail e outlook.
+</Danger>
+
+## Body
+
+- application/json
+
+<ResponseField name="username" type="string" required>
+  Nome de usuário que será registrado no sistema.
+</ResponseField>
+
+<ResponseField name="email" type="string" required>
+  E-mail que será vinculada a conta a ser criada.
+</ResponseField>
+
+<ResponseField name="password" type="string" required>
+  Senha com no mínimo 8 caracteres, incluindo caracteres especiais (\*&-.@!#)
+</ResponseField>
+
+## Response
+
+- Requisição sucesso
+- application/json
+
+<ResponseField name="status" type="string">
+  Status retornado pela API, sendo "success" ou "error"
+</ResponseField>
+
+<Accordion icon="code" title="response cookeis">
+  ```
+  {"Authorization": "0100cad5****************9"}
+  ```
+</Accordion>

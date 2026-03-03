@@ -1,4 +1,16 @@
 ---
-title: "Registrar"
-openapi: "POST /auth/1.0.0/register"
+title: "Login"
+openapi: "POST /auth/1.0.0/login"
 ---
+
+Autentica um usuário existente na plataforma **PixelJamCreator Studio**.
+
+---
+
+## Request Body
+
+```json
+{
+  "email": "string",
+  "password": "string"
+}
