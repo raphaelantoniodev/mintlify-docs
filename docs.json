@@ -82,14 +82,14 @@
     ]
   },
   "logo": {
-    "light": "/logo/light.svg",
-    "dark": "/logo/dark.svg"
+    "light": "/images/pixeljam_iconsemfundo.png",
+    "dark": "/images/pixeljam_iconsemfundo.png"
   },
   "navbar": {
     "links": [
       {
         "label": "Support",
-        "href": "mailto:hi@mintlify.com"
+        "href": "mailto:support@pixeljamcreator.com.br"
       }
     ],
     "primary": {
@@ -116,5 +116,8 @@
       "github": "https://github.com/mintlify",
       "linkedin": "https://linkedin.com/company/mintlify"
     }
+  },
+  "background": {
+    "image": "/images/PixelJamCreatorStudio.png"
   }
 }
