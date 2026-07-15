@@ -32,7 +32,8 @@
             "pages": [
               "index",
               "quickstart",
-              "development"
+              "development",
+              "pixeljamcreator"
             ]
           },
           {

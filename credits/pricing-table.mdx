@@ -1,0 +1,26 @@
+---
+title: "Tabela de Preços de Créditos"
+description: "Tabela de custos por operação no PixelJamCreator Studio."
+---
+
+## Tabela de custos
+
+| Operação | Cálculo | Observação |
+|---|---|---|
+| Geração de música | `1 crédito × quantidade de músicas` | Cada trilha consome créditos adicionais |
+| Geração de imagens | `3 créditos × quantidade de cortes` | Aplica-se por corte/cena |
+| Animação de vídeo | `2 créditos × quantidade de cortes` | Aplica-se se `video_presentation_style = animation` |
+| Pesquisa de tendências | `2 créditos fixos` | Se `research_topics` estiver ativado |
+| Publicação automática | `1 crédito fixo` | Se `auto_public` estiver ativado |
+
+## Exemplo de cálculo
+
+Para um vídeo com 4 cortes, 2 músicas, animação habilitada e pesquisa ativada:
+
+- Música: `2 × 1 = 2 créditos`
+- Imagens: `4 × 3 = 12 créditos`
+- Animação: `4 × 2 = 8 créditos`
+- Pesquisa de tendências: `2 créditos`
+- Publicação automática: `1 crédito`
+
+Total: `25 créditos`

@@ -1,0 +1,30 @@
+---
+title: "Segurança"
+description: "Como PixelJamCreator Studio protege autenticação, tokens e dados pessoais."
+---
+
+## Segurança e privacidade
+
+### Autenticação
+
+- Login via Google OAuth 2.0.
+- Nenhuma senha é armazenada pela plataforma.
+
+### Criptografia
+
+- Tokens OAuth são criptografados com AES-256.
+- Dados em trânsito são protegidos por TLS 1.2 ou superior.
+
+### Conformidade LGPD
+
+- A plataforma atende à Lei Geral de Proteção de Dados (LGPD).
+- Dados pessoais são usados apenas para operar o serviço e publicar conteúdo.
+
+### Roles de usuário
+
+- `client`: usuário padrão.
+- `admin`: administrador com acesso ampliado.
+
+<Warning>
+  Mantenha o acesso OAuth protegido. Se um token expirar, reconecte a conta.
+</Warning>

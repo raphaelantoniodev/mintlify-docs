@@ -1,0 +1,22 @@
+---
+title: "Geração de Imagens"
+description: "Etapa 2 do pipeline: criação de imagens cena a cena."
+---
+
+## Etapa 2 — Geração de imagens
+
+O sistema gera imagens para cada corte do vídeo.
+
+### Cálculo de créditos
+
+- `3 créditos × quantidade de cortes`
+
+### Como funciona
+
+- O prompt para cada cena é derivado do `channel_prompt`.
+- Se `channel_prompt_animation` estiver definido, ele contribui para o estilo visual.
+- Cada corte recebe imagens geradas por IA.
+
+<Info>
+  Use prompts claros para garantir que as imagens reflitam o estilo do vídeo.
+</Info>

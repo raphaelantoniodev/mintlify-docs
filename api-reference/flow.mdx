@@ -1,0 +1,35 @@
+---
+title: "Flow"
+description: "Rotas de API para gerenciamento do Flow Builder."
+---
+
+## Flow Builder API
+
+### `GET /panel/project/<id>/flow`
+
+- Autenticação necessária: sim
+- Parâmetros de rota: `id`
+- Descrição: retorna o estado do flow em JSON.
+
+### `POST /panel/project/<id>/flow/node`
+
+- Autenticação necessária: sim
+- Parâmetros de rota: `id`
+- Body:
+  - `platform` (enum, obrigatório)
+
+<ParamField name="platform" type="enum" required>
+`youtube`, `instagram` ou `tiktok`.
+</ParamField>
+
+### `POST /panel/project/<id>/flow/node/<node_id>/disconnect`
+
+- Autenticação necessária: sim
+- Parâmetros de rota: `id`, `node_id`
+- Descrição: desconecta a plataforma do flow.
+
+### Exemplo de response
+
+<ResponseField>
+{ "success": true, "node_id": "<node_id>", "disconnected": true }
+</ResponseField>

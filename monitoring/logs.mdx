@@ -1,0 +1,28 @@
+---
+title: "Logs"
+description: "Como interpretar os logs do pipeline no PixelJamCreator Studio."
+---
+
+## Logs e monitoramento
+
+O sistema registra eventos de cada execução do pipeline.
+
+### Campos de log
+
+- `message`: mensagem do evento
+- `level`: `info`, `success`, `warning`, `error`
+- `created_at`: timestamp do evento
+
+### Níveis de log
+
+- `info`: etapas normais do processo
+- `success`: operação concluída corretamente
+- `warning`: problema não crítico que merece atenção
+- `error`: falha de execução que interrompe o pipeline
+
+## Como usar
+
+1. Abra o painel do projeto.
+2. Verifique os logs gerados durante cada execução.
+3. Identifique `error` para corrigir falhas.
+4. Use `warning` para antecipar problemas antes da publicação.

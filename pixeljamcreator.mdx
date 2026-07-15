@@ -1,0 +1,556 @@
+---
+title: "PixelJamCreator Studio"
+description: "Documentação completa da plataforma SaaS de automação de criação e publicação de vídeos com IA."
+---
+
+## Introdução
+
+PixelJamCreator Studio é uma plataforma SaaS de automação de criação e publicação de vídeos no YouTube, com suporte planejado para Instagram e TikTok.
+
+A plataforma permite que criadores e agências configurem um pipeline de inteligência artificial que gera roteiros, imagens, músicas, edita vídeos e publica automaticamente nos canais conectados.
+
+Para quem é?
+- Criadores de conteúdo que querem automatizar produção e publicação.
+- Equipes de marketing que precisam escalar vídeo social com menos esforço manual.
+- Agências que gerenciam múltiplos canais e desejam um fluxo repetível.
+
+O que faz?
+- Conecta canais via OAuth 2.0.
+- Cria um projeto com configurações de nicho e estilo.
+- Executa um pipeline automático de IA em cinco etapas.
+- Controla o consumo por créditos e gera logs de execução.
+- Publica diretamente no YouTube com OAuth e YouTube Data API.
+
+## Primeiros Passos
+
+### 1. Criar conta
+
+O login é feito exclusivamente via Google OAuth 2.0. Não há cadastro de senha local.
+
+1. Acesse a plataforma PixelJamCreator Studio.
+2. Clique em `Login com Google`.
+3. Autorize o acesso aos dados necessários.
+
+### 2. Criar projeto
+
+Depois do login, crie um novo projeto no painel principal.
+
+- Nome do projeto: identificador interno da automação.
+- Canal de automação: representa o fluxo de conteúdo para uma conta conectada.
+
+### 3. Conectar canal
+
+Após criar o projeto, conecte pelo menos uma plataforma.
+
+- No Flow Builder, adicione um node de plataforma.
+- Use o botão de conexão para autenticar via OAuth.
+- Escolha `youtube`, `instagram` ou `tiktok`.
+
+Exemplo de rota de conexão:
+
+```http
+POST /panel/channel/connect?platform=youtube
+```
+
+## Configuração do Canal
+
+Cada projeto contém um conjunto de campos que definem como o pipeline deve produzir o vídeo.
+
+### Campos principais
+
+- `channel_prompt` (obrigatório)
+  - Descreve o nicho, tom e público do vídeo.
+  - Deve ser claro e específico.
+  - Limite: 4000 caracteres.
+
+- `channel_prompt_animation` (opcional)
+  - Prompt de estilo visual e animação.
+  - Use quando `video_presentation_style` for `animation`.
+  - Limite: 4000 caracteres.
+
+- `channel_style` (obrigatório)
+  - Gênero musical desejado.
+  - Valores válidos: `Musica Geral`, `Lofi`, `Eletronica`, `Rock`, `Pop`, `Hip Hop`, `Phonk`.
+
+- `amount_music` (obrigatório)
+  - Quantidade de músicas por vídeo.
+  - Valores: `1`, `2`, `4`, `6`, `8`.
+
+- `min_video_duration` (obrigatório)
+  - Duração mínima do vídeo em segundos.
+  - Valores: `300`, `600`, `1200`, `1800`, `3600`.
+
+- `video_presentation_style` (obrigatório)
+  - Modo de apresentação do vídeo.
+  - Valores: `static` ou `animation`.
+
+- `amount_cut` (obrigatório)
+  - Quantidade de cortes/cenas no vídeo.
+  - Valores: `1`, `2`, `4` (máximo 4).
+
+### Otimização de título e descrição
+
+- `title_style` (obrigatório)
+  - Estilo do título gerado.
+  - Valores: `engaging`, `descriptive`, `minimal`, `question`.
+
+- `description_length` (obrigatório)
+  - Tamanho da descrição do vídeo.
+  - Valores: `50`, `200`, `400` caracteres.
+
+### Publicação e agendamento
+
+- `posting_time` (obrigatório)
+  - Horário de publicação no formato `HH:MM`.
+
+- `posting_day` (obrigatório)
+  - Lista de dias da semana em que o vídeo deve ser publicado.
+  - Exemplo: `['monday', 'wednesday', 'friday']`.
+
+- `visibility` (obrigatório)
+  - Visibilidade do vídeo publicado.
+  - Valores: `public`, `unlisted`, `private`.
+
+- `auto_public` (opcional)
+  - Se ativado, publica automaticamente após renderização.
+  - Valor booleano.
+
+### Configurações de qualidade e diferenciação
+
+- `script_unique` (opcional)
+  - Garante roteiro único sem repetição interna.
+  - Valor booleano.
+
+- `research_topics` (opcional)
+  - Ativa pesquisa de tendências antes de gerar o roteiro.
+  - Valor booleano.
+
+- `titles_optimized` (opcional)
+  - Gera títulos com foco em SEO.
+  - Valor booleano.
+
+### Notificações e alertas
+
+- `warning_alert` (opcional)
+  - Exibe notificação no início da produção.
+  - Valor booleano.
+
+- `confirmation_publication` (opcional)
+  - Envia confirmação quando o vídeo é publicado.
+  - Valor booleano.
+
+- `alert_warns` (opcional)
+  - Habilita alertas de erro do pipeline.
+  - Valor booleano.
+
+### Exemplo de payload de configuração
+
+```json
+{
+  "channel_prompt": "Canal sobre cultura pop, vídeos curtos com curiosidades e análises de tendências.",
+  "channel_prompt_animation": "Animação em 8 bits com transições rápidas e estilo neon.",
+  "channel_style": "Lofi",
+  "amount_music": 2,
+  "min_video_duration": 600,
+  "video_presentation_style": "animation",
+  "amount_cut": 4,
+  "title_style": "engaging",
+  "description_length": 200,
+  "posting_time": "10:00",
+  "posting_day": ["tuesday", "thursday"],
+  "visibility": "public",
+  "auto_public": true,
+  "script_unique": true,
+  "research_topics": true,
+  "titles_optimized": true,
+  "warning_alert": true,
+  "confirmation_publication": true,
+  "alert_warns": true
+}
+```
+
+## Flow Builder
+
+O Flow Builder é a interface central de configuração de projetos em formato de canvas.
+
+### Como funciona
+
+- O node raiz é `Configurar Canal`.
+- Ele contém as configurações do projeto e controla o fluxo principal de publicação.
+- Nodes filhos representam as plataformas conectadas: `YouTube`, `Instagram` e `TikTok`.
+- Conexões são desenhadas como linhas ortogonais, com ângulos de 90 graus.
+
+### Estados visuais e comportamento
+
+- `Token ativo` exibe fluxo animado em verde.
+- `Node pendente` exibe linha tracejada.
+- Conexões inválidas ou desconectadas aparecem sem animação.
+
+### Ações comuns
+
+- Adicionar node de plataforma: `POST /panel/project/<id>/flow/node`
+- Desconectar plataforma: `POST /panel/project/<id>/flow/node/<node_id>/disconnect`
+- Recuperar estado do flow: `GET /panel/project/<id>/flow`
+
+### Exemplo prático
+
+1. Crie seu projeto.
+2. Adicione o node `YouTube`.
+3. Conecte a conta do canal.
+4. Verifique se a linha entre os nodes está verde.
+5. Ajuste o `channel_prompt` e clique em salvar.
+
+## Sistema de Créditos
+
+PixelJamCreator Studio usa créditos como unidade de consumo de recursos.
+
+### Como funciona
+
+Cada operação de criação consome créditos.
+Os créditos são debitados do saldo do usuário ao executar o pipeline.
+
+### Tabela de custos
+
+| Operação | Fórmula | Observação |
+|---|---|---|
+| Geração de música | `1 crédito × quantidade de músicas configuradas` | Cada trilha gera custo adicional |
+| Geração de imagens | `3 créditos × quantidade de cortes` | Custo por corte/cena |
+| Animação de vídeo | `2 créditos × quantidade de cortes` | Aplica-se se `video_presentation_style = animation` |
+| Pesquisa de tendências | `2 créditos fixos` | Se `research_topics` estiver ativado |
+| Publicação automática | `1 crédito fixo` | Se `auto_public` estiver ativado |
+
+### Exemplo de cálculo
+
+Para um vídeo com 4 cortes, 2 músicas, animação habilitada e pesquisa ativada:
+- Música: `2 × 1 = 2 créditos`
+- Imagens: `4 × 3 = 12 créditos`
+- Animação: `4 × 2 = 8 créditos`
+- Pesquisa de tendências: `2 créditos`
+- Publicação automática: `1 crédito`
+- Total: `25 créditos`
+
+### Como comprar créditos
+
+A compra de créditos é feita pelo painel da conta do usuário ou por meio do canal de vendas da empresa.
+
+- Visite o painel de faturamento.
+- Selecione o pacote de créditos desejado.
+- Confirme o pagamento.
+
+## Pipeline de IA
+
+O pipeline de PixelJamCreator Studio possui cinco etapas sequenciais.
+
+### 1. Geração do roteiro
+
+- O sistema usa o `channel_prompt` para gerar o roteiro do vídeo.
+- Pode incluir títulos de execução, divisão de cenas e texto narrativo.
+- Quando `research_topics` está ativado, há uma etapa adicional de análise de tendências.
+
+### 2. Criação de imagens
+
+- Cada corte do vídeo recebe imagens geradas por IA.
+- O prompt de cada cena é derivado do `channel_prompt` e do `channel_prompt_animation` quando aplicável.
+- Custo de crédito: `3 créditos × quantidade de cortes`.
+
+### 3. Geração de música
+
+- O pipeline cria trilhas de áudio compatíveis com o estilo escolhido.
+- O número de músicas é definido por `amount_music`.
+- Custo de crédito: `1 crédito × quantidade de músicas`.
+
+### 4. Edição e renderização
+
+- O vídeo é montado automaticamente via pipeline FFmpeg.
+- O sistema aplica transições, duração mínima e estilo de apresentação.
+- Se `video_presentation_style = animation`, a renderização inclui camadas animadas e efeitos visuais.
+
+### 5. Publicação
+
+- O vídeo pode ser publicado automaticamente se `auto_public` estiver ativado.
+- Usa YouTube Data API e OAuth 2.0 para enviar o vídeo ao canal conectado.
+- Caso não haja publicação automática, o vídeo é preparado e aguarda revisão.
+
+## Agendamento
+
+### Dias e horários
+
+- `posting_day` define os dias da semana em que a publicação pode acontecer.
+- `posting_time` define a hora padrão de publicação no formato `HH:MM`.
+- O pipeline respeita o agendamento configurado antes de tentar publicar.
+
+### Visibilidade
+
+- `visibility` controla o estado padrão do vídeo após a publicação.
+- Opções:
+  - `public`: visível a todos.
+  - `unlisted`: não listado, visível apenas por link.
+  - `private`: acessível apenas para proprietários e contas autorizadas.
+
+### Publicação automática
+
+- `auto_public = true` publica o vídeo sem intervenção após renderização.
+- `auto_public = false` gera o vídeo e aguarda aprovação manual.
+
+## Plataformas Suportadas
+
+### YouTube
+
+- Conexão via OAuth 2.0 e Google.
+- A publicação é feita com a YouTube Data API.
+- Rota de conexão:
+
+```http
+POST /panel/channel/connect?platform=youtube
+```
+
+### Instagram
+
+- Suporte planejado para conectar contas Instagram.
+- Conexão padrão via `POST /panel/channel/connect?platform=instagram`.
+- O fluxo usa OAuth e tokens criptografados.
+
+### TikTok
+
+- Conexão planejada via `POST /panel/channel/connect?platform=tiktok`.
+- O sistema armazena credenciais seguras para futura publicação.
+
+## Logs e Monitoramento
+
+O sistema registra cada execução do pipeline com logs estruturados.
+
+### Campos de log
+
+- `message`: texto do evento.
+- `level`: `info`, `success`, `warning`, `error`.
+- `created_at`: timestamp do evento.
+
+### Interpretação prática
+
+- `info`: etapas normais do pipeline.
+- `success`: operação concluída corretamente.
+- `warning`: problema não crítico, exige atenção.
+- `error`: falha de execução; requer correção imediata.
+
+### Exemplo de uso
+
+1. Inicie uma execução do projeto.
+2. Abra os logs no painel do projeto.
+3. Identifique o primeiro `error` para entender onde o pipeline parou.
+4. Use `warning` para revisar possíveis riscos antes da publicação.
+
+## Segurança e Privacidade
+
+### Autenticação
+
+- Login exclusivo via Google OAuth 2.0.
+- Não há armazenamento de senha na plataforma.
+
+### Criptografia
+
+- Tokens OAuth dos canais são armazenados criptografados com AES-256.
+- Dados em trânsito são protegidos por TLS 1.2 ou superior.
+
+### Conformidade
+
+- A plataforma segue os requisitos da LGPD (Lei nº 13.709/2018).
+- Dados pessoais são minimizados e usados apenas para operar o serviço.
+
+### Roles de usuário
+
+- `client`: usuário padrão que cria projetos e conecta canais.
+- `admin`: usuário com acesso ampliado a gerenciamento e suporte.
+
+## FAQ
+
+### A plataforma já publica automaticamente no YouTube?
+
+Sim, quando `auto_public` está habilitado e o canal está conectado via OAuth.
+
+### Posso usar o mesmo projeto para YouTube, Instagram e TikTok?
+
+Sim. Cada plataforma é representada por um node separado no Flow Builder.
+
+### Quantos créditos eu preciso para um vídeo com 4 cortes?
+
+Depende das configurações. Use a tabela de custos para calcular: imagens, música, animação, pesquisa e publicação automática.
+
+### O que acontece se o token OAuth expirar?
+
+O pipeline falha e o log registra um `error`. É necessário reconectar o canal.
+
+### Meu roteiro pode ser gerado sem pesquisa de tendências?
+
+Sim. `research_topics` é opcional. Sem ele, o roteiro é criado apenas com base no prompt principal.
+
+### O que é o `channel_prompt_animation`?
+
+É o prompt específico para o estilo visual e a animação do vídeo, usado quando a apresentação é animada.
+
+### Como sei se a publicação foi feita?
+
+O log registra `success` na etapa de publicação e, se habilitado, `confirmation_publication` envia uma notificação.
+
+### Posso definir mais de um horário de publicação?
+
+Atualmente o campo `posting_time` aceita um único horário. Use `posting_day` para definir os dias de publicação.
+
+## Referência de API
+
+### Autenticação
+
+- `GET /auth/login`
+  - Redireciona para o fluxo do Google OAuth.
+  - Parâmetros: nenhum.
+  - Resposta esperada: redirecionamento HTTP 302.
+
+- `GET /auth/callback`
+  - Processa o retorno do Google OAuth.
+  - Parâmetros: `code`, `state` (dependendo da implementação OAuth).
+  - Resposta esperada: valida token e inicia sessão.
+
+- `GET /auth/logout`
+  - Encerra a sessão do usuário.
+  - Parâmetros: nenhum.
+  - Resposta esperada: redirecionamento para página de logout ou login.
+
+### Painel
+
+- `GET /panel/dashboard`
+  - Retorna o dashboard principal com a lista de projetos.
+  - Parâmetros: autenticação via sessão ou token.
+  - Resposta esperada:
+
+```json
+{
+  "projects": [
+    {"id": "...", "name": "...", "status": "..."}
+  ]
+}
+```
+
+- `POST /panel/create/project`
+  - Cria um novo projeto.
+  - Body JSON:
+
+```json
+{ "name": "Nome do Projeto" }
+```
+
+  - Resposta esperada:
+
+```json
+{ "id": "<project_id>", "name": "Nome do Projeto" }
+```
+
+- `GET /panel/project/<id>`
+  - Retorna a página do Flow Builder para o projeto.
+  - Parâmetros: `id` do projeto.
+  - Resposta esperada: HTML/JSON da página.
+
+- `POST /panel/project/<id>/ai/config`
+  - Salva as configurações de IA do projeto.
+  - Body JSON: payload com os campos de `channel_*`, `amount_music`, `amount_cut`, etc.
+  - Resposta esperada:
+
+```json
+{ "success": true, "project_id": "<id>" }
+```
+
+- `POST /panel/project/<id>/ai/config/preferences`
+  - Salva preferências adicionais de IA.
+  - Body JSON: campos booleanos e de otimização.
+  - Resposta esperada:
+
+```json
+{ "success": true, "project_id": "<id>" }
+```
+
+- `POST /panel/project/<id>/schedule`
+  - Salva o agendamento do projeto.
+  - Body JSON: `posting_time`, `posting_day`, `visibility`, `auto_public`.
+  - Resposta esperada:
+
+```json
+{ "success": true, "project_id": "<id>" }
+```
+
+- `POST /panel/project/<id>/schedule/preferences`
+  - Salva preferências de agendamento avançadas.
+  - Body JSON: campos personalizados de notificação/agendamento.
+  - Resposta esperada:
+
+```json
+{ "success": true, "project_id": "<id>" }
+```
+
+- `POST /panel/project/<id>/overview/preferences`
+  - Salva preferências gerais do projeto.
+  - Body JSON: campos como `warning_alert`, `confirmation_publication`, `alert_warns`.
+  - Resposta esperada:
+
+```json
+{ "success": true, "project_id": "<id>" }
+```
+
+- `GET /panel/project/<id>/flow`
+  - Retorna o estado do Flow Builder em JSON.
+  - Parâmetros: `id` do projeto.
+  - Resposta esperada:
+
+```json
+{
+  "project_id": "<id>",
+  "nodes": [...],
+  "connections": [...]
+}
+```
+
+- `POST /panel/project/<id>/flow/node`
+  - Adiciona um node de plataforma ao flow.
+  - Body JSON: `platform`, `account_name`, `picture` (opcional).
+  - Resposta esperada:
+
+```json
+{ "success": true, "node_id": "<node_id>" }
+```
+
+- `POST /panel/project/<id>/flow/node/<node_id>/disconnect`
+  - Desconecta uma plataforma do flow.
+  - Parâmetros: `id` do projeto, `node_id` do node.
+  - Resposta esperada:
+
+```json
+{ "success": true, "disconnected": true }
+```
+
+- `GET /panel/project/delete/<id>`
+  - Remove o projeto e suas conexões.
+  - Parâmetros: `id` do projeto.
+  - Resposta esperada:
+
+```json
+{ "success": true, "deleted": true }
+```
+
+### Conexão OAuth de plataformas
+
+- `POST /panel/channel/connect?platform=<youtube|instagram|tiktok>`
+  - Inicia o fluxo OAuth para conectar uma conta.
+  - Parâmetros: `platform` obrigatório.
+  - Resposta esperada: redirecionamento ou link OAuth.
+
+```json
+{ "oauth_url": "https://..." }
+```
+
+## Modelo de Dados do Usuário
+
+O JWT de cada usuário autenticado inclui os campos abaixo:
+
+- `sub`: identificador único do Google.
+- `username`: nome de usuário.
+- `email`: e-mail.
+- `picture`: URL do avatar.
+- `role`: `client` ou `admin`.
+- `credits`: saldo de créditos disponíveis.

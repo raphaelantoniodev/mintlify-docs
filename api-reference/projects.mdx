@@ -1,0 +1,62 @@
+---
+title: "Projetos"
+description: "Rotas de API para criação e gerenciamento de projetos."
+---
+
+## Projetos
+
+### `POST /panel/create/project`
+
+- Autenticação necessária: sim
+- Body:
+  - `name` (string, obrigatório)
+
+<ParamField name="name" type="string" required>
+Nome do projeto.
+</ParamField>
+
+### Exemplo de request
+
+<CodeGroup>
+<CodeGroup.Code title="JavaScript (fetch)">
+```js
+fetch('/panel/create/project', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({ name: 'Canal de Tecnologia' })
+});
+```
+</CodeGroup.Code>
+<CodeGroup.Code title="Python">
+```py
+import requests
+
+response = requests.post(
+  'https://seusite.com/panel/create/project',
+  json={'name': 'Canal de Tecnologia'}
+)
+```
+</CodeGroup.Code>
+</CodeGroup>
+
+### Response de sucesso
+
+<ResponseField>
+{ "id": "<project_id>", "name": "Canal de Tecnologia" }
+</ResponseField>
+
+### `GET /panel/project/<id>`
+
+- Autenticação necessária: sim
+- Parâmetros de rota: `id`
+- Descrição: retorna a página do Flow Builder para o projeto.
+
+### `GET /panel/project/delete/<id>`
+
+- Autenticação necessária: sim
+- Parâmetros de rota: `id`
+- Descrição: remove o projeto.
+
+<ResponseField>
+{ "success": true, "deleted": true }
+</ResponseField>

@@ -1,0 +1,42 @@
+---
+title: "Agendamento"
+description: "Como configurar dias, horários e visibilidade de publicação."
+---
+
+## Agendamento e visibilidade
+
+### `posting_day`
+
+- Tipo: array
+- Obrigatório: sim
+- Descrição: dias da semana em que o vídeo será publicado
+- Exemplo: `["monday", "wednesday"]`
+
+### `posting_time`
+
+- Tipo: string
+- Obrigatório: sim
+- Descrição: horário de publicação no formato `HH:MM`
+- Exemplo: `10:00`
+
+### `visibility`
+
+- Tipo: enum
+- Obrigatório: sim
+- Valores aceitos: `public`, `unlisted`, `private`
+
+### `auto_public`
+
+- Tipo: boolean
+- Obrigatório: não
+- Descrição: publica automaticamente quando o vídeo estiver pronto
+- Custo: `1 crédito fixo` se ativado
+
+## Como funciona o agendamento
+
+- O pipeline verifica o agendamento antes de publicar.
+- Se o horário ou o dia não estiverem configurados corretamente, a publicação será adiada.
+
+<Warning>
+  Um `posting_time` inválido impedirá a publicação automática.
+</Warning>

@@ -1,0 +1,30 @@
+---
+title: "Plataformas"
+description: "Rotas de API para conexão de plataformas externas."
+---
+
+## Plataformas
+
+### `POST /panel/channel/connect?platform=<youtube|instagram|tiktok>`
+
+- Autenticação necessária: sim
+- Parâmetros de query: `platform`
+- Descrição: inicia o fluxo OAuth para conectar a plataforma.
+
+<ParamField name="platform" type="enum" required>
+`youtube`, `instagram` ou `tiktok`.
+</ParamField>
+
+### Exemplo de response
+
+<ResponseField>
+{ "oauth_url": "https://accounts.google.com/o/oauth2/auth?..." }
+</ResponseField>
+
+## Dados armazenados
+
+- `account_name` (string)
+- `picture` (string)
+- `token` (criptografado)
+- `refresh_token` (criptografado)
+- `videos_count` (integer)

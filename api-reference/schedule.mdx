@@ -1,0 +1,45 @@
+---
+title: "Agendamento"
+description: "Rotas de API para agendamento e preferências de publicação."
+---
+
+## Agendamento
+
+### `POST /panel/project/<id>/schedule`
+
+- Autenticação necessária: sim
+- Parâmetros de rota: `id`
+- Body:
+  - `posting_time` (string, obrigatório)
+  - `posting_day` (array, obrigatório)
+  - `visibility` (enum, obrigatório)
+  - `auto_public` (boolean, opcional)
+
+<ParamField name="posting_time" type="string" required>
+Horário de publicação em `HH:MM`.
+</ParamField>
+<ParamField name="posting_day" type="array" required>
+Dias da semana para publicação.
+</ParamField>
+<ParamField name="visibility" type="enum" required>
+`public`, `unlisted`, `private`.
+</ParamField>
+<ParamField name="auto_public" type="boolean">
+Publicação automática.
+</ParamField>
+
+### `POST /panel/project/<id>/schedule/preferences`
+
+- Autenticação necessária: sim
+- Descrição: salva preferências adicionais de agendamento.
+
+### `POST /panel/project/<id>/overview/preferences`
+
+- Autenticação necessária: sim
+- Descrição: salva preferências gerais do projeto.
+
+## Exemplo de response
+
+<ResponseField>
+{ "success": true, "project_id": "<id>" }
+</ResponseField>

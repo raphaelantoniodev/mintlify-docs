@@ -1,0 +1,140 @@
+---
+title: "Configuração de IA"
+description: "Documentação dos campos de configuração de projeto para IA."
+---
+
+## Configuração de IA do projeto
+
+Este arquivo documenta todos os campos de configuração central do projeto.
+
+### `channel_prompt`
+
+- Tipo: string
+- Obrigatório: sim
+- Descrição: prompt principal que define nicho, tom e audiência
+- Limite: 4000 caracteres
+
+<CodeGroup>
+<CodeGroup.Code title="Exemplo">
+```json
+"channel_prompt": "Canal sobre tecnologia e produtividade, com vídeos objetivos e exemplos práticos."
+```
+</CodeGroup.Code>
+</CodeGroup>
+
+### `channel_prompt_animation`
+
+- Tipo: string
+- Obrigatório: não
+- Descrição: prompt de estilo visual e animação
+- Limite: 4000 caracteres
+
+<Note>
+  Use apenas se `video_presentation_style` estiver definido como `animation`.
+</Note>
+
+### `channel_style`
+
+- Tipo: enum
+- Obrigatório: sim
+- Valores aceitos: `Musica Geral`, `Lofi`, `Eletronica`, `Rock`, `Pop`, `Hip Hop`, `Phonk`
+
+### `amount_music`
+
+- Tipo: integer
+- Obrigatório: sim
+- Valores aceitos: `1`, `2`, `4`, `6`, `8`
+- Custo: `1 crédito × quantidade de músicas`
+
+### `min_video_duration`
+
+- Tipo: integer
+- Obrigatório: sim
+- Valores aceitos: `300`, `600`, `1200`, `1800`, `3600`
+- Observação: o vídeo de animação não pode exceder 3600 segundos
+
+### `video_presentation_style`
+
+- Tipo: enum
+- Obrigatório: sim
+- Valores aceitos: `static`, `animation`
+
+### `amount_cut`
+
+- Tipo: integer
+- Obrigatório: sim
+- Valores aceitos: `1`, `2`, `4`
+- Observação: máximo 4
+- Custo: `3 créditos × quantidade de cortes` para imagens
+
+### `title_style`
+
+- Tipo: enum
+- Obrigatório: sim
+- Valores aceitos: `engaging`, `descriptive`, `minimal`, `question`
+
+### `description_length`
+
+- Tipo: integer
+- Obrigatório: sim
+- Valores aceitos: `50`, `200`, `400`
+
+### `posting_time`
+
+- Tipo: string
+- Obrigatório: sim
+- Formato: `HH:MM`
+
+### `posting_day`
+
+- Tipo: array
+- Obrigatório: sim
+- Valores aceitos: dias da semana em formato JSON
+
+### `visibility`
+
+- Tipo: enum
+- Obrigatório: sim
+- Valores aceitos: `public`, `unlisted`, `private`
+
+### `auto_public`
+
+- Tipo: boolean
+- Obrigatório: não
+- Custo: `1 crédito fixo` se ativado
+
+### `script_unique`
+
+- Tipo: boolean
+- Obrigatório: não
+- Descrição: garante roteiro único sem repetição
+
+### `research_topics`
+
+- Tipo: boolean
+- Obrigatório: não
+- Custo: `2 créditos fixos` se ativado
+
+### `titles_optimized`
+
+- Tipo: boolean
+- Obrigatório: não
+- Descrição: títulos com SEO
+
+### `warning_alert`
+
+- Tipo: boolean
+- Obrigatório: não
+- Descrição: exibe notificação no início da produção
+
+### `confirmation_publication`
+
+- Tipo: boolean
+- Obrigatório: não
+- Descrição: confirma a publicação ao final do pipeline
+
+### `alert_warns`
+
+- Tipo: boolean
+- Obrigatório: não
+- Descrição: habilita alertas de erro do pipeline

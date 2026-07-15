@@ -1,0 +1,26 @@
+---
+title: "Autenticação"
+description: "Rotas de autenticação e login do PixelJamCreator Studio."
+---
+
+## Autenticação
+
+### `GET /auth/login`
+
+- Autenticação necessária: não
+- Descrição: redireciona para o fluxo Google OAuth.
+
+### `GET /auth/callback`
+
+- Autenticação necessária: não
+- Descrição: processa o retorno do Google OAuth.
+- Parâmetros: `code`, `state`.
+
+### `GET /auth/logout`
+
+- Autenticação necessária: sim
+- Descrição: encerra a sessão do usuário.
+
+<Note>
+  A plataforma usa JWT em cookie para autenticação interna após o login.
+</Note>

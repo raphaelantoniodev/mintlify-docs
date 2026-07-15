@@ -1,0 +1,66 @@
+---
+title: "Projetos"
+description: "Como criar e gerenciar projetos no PixelJamCreator Studio."
+---
+
+## Gerenciamento de projetos
+
+Um projeto representa um canal de automação de vídeo.
+
+### O que é um projeto?
+
+- `project` é a unidade principal de produção.
+- Contém configurações de prompt, estilo, duração, publicação e notificação.
+- Está vinculado a canais conectados via OAuth.
+
+### Criar um projeto
+
+Use a rota abaixo para criar um projeto.
+
+<CodeGroup>
+<CodeGroup.Code title="JavaScript (fetch)">
+```js
+fetch('/panel/create/project', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({ name: 'Canal de Tecnologia' })
+});
+```
+</CodeGroup.Code>
+<CodeGroup.Code title="Python">
+```py
+import requests
+
+response = requests.post(
+  'https://seusite.com/panel/create/project',
+  json={'name': 'Canal de Tecnologia'}
+)
+```
+</CodeGroup.Code>
+</CodeGroup>
+
+### Excluir um projeto
+
+<CodeGroup>
+<CodeGroup.Code title="HTTP">
+```http
+GET /panel/project/delete/<id>
+```
+</CodeGroup.Code>
+</CodeGroup>
+
+<Warning>
+  A exclusão remove todas as conexões e logs associados ao projeto.
+</Warning>
+
+### Campos importantes
+
+- `name` (string, obrigatório)
+- `id` (string, gerado pela plataforma)
+
+## Fluxo de trabalho
+
+1. Crie um projeto.
+2. Configure o canal no node raiz.
+3. Conecte plataformas no Flow Builder.
+4. Execute o pipeline e monitore pelos logs.

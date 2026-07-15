@@ -1,55 +1,77 @@
 ---
-title: "Quickstart"
-description: "Start building awesome documentation in minutes"
+title: "Primeiros Passos"
+description: "Como iniciar no PixelJamCreator Studio com criação de projeto e conexão de canal."
 ---
 
-## Get started in three steps
+## Primeiros passos
 
-Get your documentation site running locally and make your first customization.
+Siga este fluxo para configurar seu primeiro projeto e conectar um canal.
 
-### Step 1: Set up your local environment
+<Steps>
+<Step title="Autenticar com Google">
+Faça login via Google OAuth 2.0. Não há cadastro de senha na plataforma.
+</Step>
+<Step title="Criar um projeto">
+No painel principal, clique em criar projeto e informe um nome.
+</Step>
+<Step title="Configurar o canal">
+Preencha o prompt de nicho, estilo de vídeo, tempo e número de cortes.
+</Step>
+<Step title="Conectar uma plataforma">
+Use o Flow Builder para adicionar um node e autenticar a conta via OAuth.
+</Step>
+<Step title="Executar o pipeline">
+Inicie a produção e acompanhe o progresso pelos logs.
+</Step>
+</Steps>
 
-<AccordionGroup>
-  <Accordion icon="copy" title="Clone your docs locally">
-    During the onboarding process, you created a GitHub repository with your docs content if you didn't already have one. You can find a link to this repository in your [dashboard](https://dashboard.mintlify.com).
-    
-    To clone the repository locally so that you can make and preview changes to your docs, follow the [Cloning a repository](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository) guide in the GitHub docs.
-  </Accordion>
-  <Accordion icon="rectangle-terminal" title="Start the preview server">
-    1. Install the Mintlify CLI: `npm i -g mint`
-    2. Navigate to your docs directory and run: `mint dev`
-    3. Open `http://localhost:3000` to see your docs live!
-    
-    <Tip>Your preview updates automatically as you edit files.</Tip>
-  </Accordion>
-</AccordionGroup>
+## Criar um projeto
 
-### Step 2: Deploy your changes
+<Note>
+  O nome do projeto é a unidade central do fluxo de automação.
+</Note>
 
-<AccordionGroup>
-  <Accordion icon="github" title="Install our GitHub app">
-    Install the Mintlify GitHub app from your [dashboard](https://dashboard.mintlify.com/settings/organization/github-app).
-    
-    Our GitHub app automatically deploys your changes to your docs site, so you don't need to manage deployments yourself.
-</Accordion>
-<Accordion icon="palette" title="Update your site name and colors">
-    For a first change, let's update the name and colors of your docs site.
+<CodeGroup>
+<CodeGroup.Code title="JavaScript (fetch)">
+```js
+fetch('/panel/create/project', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({ name: 'Canal de Tecnologia' })
+});
+```
+</CodeGroup.Code>
+<CodeGroup.Code title="Python">
+```py
+import requests
 
-    1. Open `docs.json` in your editor.
-    2. Change the `"name"` field to your project name.
-    3. Update the `"colors"` to match your brand.
-    4. Save and see your changes instantly at `http://localhost:3000`.
+response = requests.post(
+  'https://seusite.com/panel/create/project',
+  json={'name': 'Canal de Tecnologia'}
+)
+```
+</CodeGroup.Code>
+</CodeGroup>
 
-    <Tip>Try changing the primary color to see an immediate difference!</Tip>
-  </Accordion>
-</AccordionGroup>
+## Conectar canal
 
-### Step 3: Go live
+Use a rota de conexão para iniciar o fluxo OAuth.
 
-<Accordion icon="rocket" title="Publish your docs">
-  1. Commit and push your changes.
-  2. Your docs will update and be live in moments!
-</Accordion>
+```http
+POST /panel/channel/connect?platform=youtube
+```
+
+<Info>
+  O token OAuth é armazenado criptografado com AES-256. A plataforma não guarda senhas.
+</Info>
+
+## Recomendações iniciais
+
+- Confirme seu saldo de créditos antes de iniciar a produção.
+- Configure o `channel_prompt` com o máximo de detalhe possível.
+- Use `research_topics` se quiser conteúdo alinhado a tendências.
 
 ## Next steps
 

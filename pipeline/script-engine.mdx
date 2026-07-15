@@ -1,0 +1,38 @@
+---
+title: "Geração de Roteiro"
+description: "Etapa 1 do pipeline: como o roteiro do vídeo é criado automaticamente."
+---
+
+## Etapa 1 — Geração do roteiro
+
+O roteiro é gerado automaticamente a partir de `channel_prompt`.
+
+### O que o prompt define
+
+- Nicho
+- Tom
+- Público
+- Estrutura das cenas
+
+### Quando usar pesquisa de tendências
+
+- `research_topics`: busca temas em alta antes de criar o roteiro.
+- Custo: `2 créditos` fixos.
+
+### Exemplo de prompt
+
+```json
+{
+  "channel_prompt": "Canal sobre finanças pessoais, vídeos curtos com dicas de economia e investimentos."
+}
+```
+
+### Resultado esperado
+
+- Título sugestão
+- Sequência de cenas
+- Texto das falas ou legenda
+
+<Warning>
+  `channel_prompt` é obrigatório. Sem ele, o pipeline não inicia.
+</Warning>

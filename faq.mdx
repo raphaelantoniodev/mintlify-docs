@@ -1,0 +1,32 @@
+---
+title: "FAQ"
+description: "Perguntas frequentes sobre PixelJamCreator Studio."
+---
+
+## Perguntas frequentes
+
+<AccordionGroup>
+<Accordion title="Como faço login na plataforma?">
+O login é feito exclusivamente via Google OAuth 2.0. Não há cadastro de senha local.
+</Accordion>
+
+<Accordion title="Quais são as plataformas suportadas?">
+Hoje a publicação automática está disponível para YouTube. Instagram e TikTok estão previstos e dependem de conexão OAuth.
+</Accordion>
+
+<Accordion title="Como os créditos são cobrados?">
+O sistema usa créditos para cada etapa: música, imagens, animação, pesquisa e publicação automática.
+</Accordion>
+
+<Accordion title="O que acontece se o token OAuth expirar?">
+A execução do pipeline falha com um erro. É necessário reconectar o canal para retomar a publicação.
+</Accordion>
+
+<Accordion title="Posso usar o mesmo projeto para múltiplas plataformas?">
+Sim. Cada projeto pode ter múltiplos canais da mesma plataforma gerenciados no mesmo node do Flow Builder.
+</Accordion>
+
+<Accordion title="É possível publicar sem automação?">
+Sim. Se `auto_public` estiver desativado, o vídeo é renderizado mas não é enviado automaticamente ao canal.
+</Accordion>
+</AccordionGroup>

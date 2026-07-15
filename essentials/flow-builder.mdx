@@ -1,0 +1,44 @@
+---
+title: "Flow Builder"
+description: "Como usar a interface de nodes para configurar a automação de publicação."
+---
+
+## Flow Builder
+
+O Flow Builder é a interface de configuração visual da automação.
+
+### Estrutura do canvas
+
+- Node raiz: `Configurar Canal`.
+- Nodes filhos: plataformas conectadas.
+- Conexões: linhas ortogonais em 90° com estilo pixel art.
+
+<Info>
+  Múltiplos canais da mesma plataforma aparecem dentro do mesmo node, não como nodes separados.
+</Info>
+
+### Estados visuais
+
+- Linha verde animada: token ativo.
+- Linha tracejada: conexão pendente.
+- Linha cinza: canal desconectado.
+
+### Ações principais
+
+- Adicionar node de plataforma: `POST /panel/project/<id>/flow/node`
+- Desconectar plataforma: `POST /panel/project/<id>/flow/node/<node_id>/disconnect`
+- Ver estado do flow: `GET /panel/project/<id>/flow`
+
+### Exemplo de uso
+
+1. Abra o projeto.
+2. Clique em adicionar plataforma.
+3. Selecione `YouTube`, `Instagram` ou `TikTok`.
+4. Faça login via OAuth.
+5. Verifique a conexão no canvas.
+
+## Recomendações
+
+- Use o node raiz para editar configurações de canal.
+- Verifique se todas as plataformas exigidas estão conectadas antes de executar o pipeline.
+- Monitore warnings e erros no log para garantir que o flow está saudável.

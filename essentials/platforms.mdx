@@ -1,0 +1,44 @@
+---
+title: "Plataformas"
+description: "Como conectar YouTube, Instagram e TikTok no PixelJamCreator Studio."
+---
+
+## Plataformas suportadas
+
+### YouTube
+
+- Plataforma principal com publicação automática disponível.
+- Conexão via OAuth 2.0 e YouTube Data API.
+
+### Instagram
+
+- Conexão planejada via OAuth.
+- Disponível para futuras funcionalidades de publicação.
+
+### TikTok
+
+- Conexão planejada via OAuth.
+- Disponível para futuros lançamentos de integração.
+
+## Conectar uma plataforma
+
+Use a rota abaixo para iniciar a conexão.
+
+```http
+POST /panel/channel/connect?platform=<youtube|instagram|tiktok>
+```
+
+<Note>
+  A plataforma armazena `token` e `refresh_token` criptografados com AES-256.
+</Note>
+
+## Campos de conexão
+
+- `platform` (enum): `youtube`, `instagram`, `tiktok`
+- `account_name` (string): nome da conta conectada
+- `picture` (string, opcional): URL do avatar da conta
+
+### Observações
+
+- Múltiplas contas da mesma plataforma são tratadas dentro do mesmo node do Flow Builder.
+- Channels com token ativo mostram fluxo verde no canvas.

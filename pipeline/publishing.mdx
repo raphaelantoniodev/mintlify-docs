@@ -1,0 +1,30 @@
+---
+title: "Publicação"
+description: "Etapa 5 do pipeline: publicação automática do vídeo em canais conectados."
+---
+
+## Etapa 5 — Publicação
+
+A publicação é feita diretamente nos canais conectados com OAuth.
+
+### Quando a publicação é automática
+
+- `auto_public = true`
+- O vídeo é enviado automaticamente após a renderização.
+- Custo: `1 crédito fixo`
+
+### Visibilidade
+
+- `visibility`: `public`, `unlisted` ou `private`
+- O valor é aplicado no upload final.
+
+### Fluxo de publicação
+
+1. Vídeo renderizado.
+2. Metadata preenchida com título e descrição.
+3. Envio via YouTube Data API.
+4. Confirmação de publicação no log.
+
+<Note>
+  Se `auto_public` estiver desativado, o arquivo é preparado mas aguarda aprovação manual.
+</Note>

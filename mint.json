@@ -1,0 +1,120 @@
+{
+  "$schema": "https://mintlify.com/docs.json",
+  "theme": "mint",
+  "name": "PixelJamCreator Studio",
+  "colors": {
+    "primary": "#ffffff",
+    "background": "#000000",
+    "text": "#f8f8f8"
+  },
+  "favicon": "/images/pixeljam_iconsemfundo.png",
+  "logo": {
+    "light": "/images/pixeljam_iconsemfundo.png",
+    "dark": "/images/pixeljam_iconsemfundo.png"
+  },
+  "navigation": {
+    "tabs": [
+      {
+        "tab": "Guides",
+        "groups": [
+          {
+            "group": "Plataforma",
+            "pages": [
+              "introduction",
+              "quickstart",
+              "faq"
+            ]
+          },
+          {
+            "group": "Essenciais",
+            "pages": [
+              "essentials/project",
+              "essentials/flow-builder",
+              "essentials/ai-configuration",
+              "essentials/scheduling",
+              "essentials/platforms"
+            ]
+          },
+          {
+            "group": "Créditos",
+            "pages": [
+              "credits/overview",
+              "credits/pricing-table"
+            ]
+          },
+          {
+            "group": "Pipeline",
+            "pages": [
+              "pipeline/overview",
+              "pipeline/script-engine",
+              "pipeline/image-generation",
+              "pipeline/music-layer",
+              "pipeline/video-editing",
+              "pipeline/publishing"
+            ]
+          },
+          {
+            "group": "Monitoramento",
+            "pages": [
+              "monitoring/logs"
+            ]
+          },
+          {
+            "group": "Segurança",
+            "pages": [
+              "security/overview"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "API Reference",
+        "groups": [
+          {
+            "group": "Autenticação",
+            "pages": [
+              "api-reference/authentication"
+            ]
+          },
+          {
+            "group": "Projetos",
+            "pages": [
+              "api-reference/projects"
+            ]
+          },
+          {
+            "group": "Flow",
+            "pages": [
+              "api-reference/flow"
+            ]
+          },
+          {
+            "group": "Plataformas",
+            "pages": [
+              "api-reference/platforms"
+            ]
+          },
+          {
+            "group": "Agendamento",
+            "pages": [
+              "api-reference/schedule"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "navbar": {
+    "links": [
+      {
+        "label": "Suporte",
+        "href": "mailto:support@pixeljamcreator.com.br"
+      }
+    ],
+    "primary": {
+      "type": "button",
+      "label": "Dashboard",
+      "href": "https://dashboard.pixeljamcreator.com"
+    }
+  }
+}
